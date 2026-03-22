@@ -1,3 +1,0 @@
-# This file exists locally — needs GitHub token with `workflow` scope to push
-# Khusna: add `workflow` scope to your GitHub PAT at https://github.com/settings/tokens
-# Then run: git add .github && git commit -m "ci: add release workflow" && git push
