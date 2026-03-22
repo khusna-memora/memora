@@ -32,8 +32,5 @@ ENV PORT=8716 \
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
   CMD wget -qO- http://127.0.0.1:8716/healthcheck | grep -q '"is_healthy":true' || exit 1
 
-# Volume for persistent storage (Pearl mounts this)
-VOLUME ["/app/data"]
-
 # ENTRYPOINT — Pearl passes --password arg
 ENTRYPOINT ["./run.sh"]
