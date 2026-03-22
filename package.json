@@ -14,7 +14,9 @@
   },
   "pkg": {
     "assets": [
-      "src/ui/**/*"
+      "src/ui/**/*",
+      "src/ui/.well-known/**/*",
+      "agent-metadata.json"
     ],
     "scripts": [
       "src/**/*.js"

@@ -7,6 +7,7 @@ const { loadAgentEOA, loadSafeAddresses } = require('../keystore');
 
 const STORE_PATH = process.env.CONNECTION_CONFIGS_CONFIG_STORE_PATH || path.join(process.cwd(), 'data');
 const UI_PATH = path.join(__dirname, '../ui/dashboard.html');
+const WELL_KNOWN_PATH = path.join(__dirname, '../ui/.well-known');
 
 // Pearl Phase 1.4 — GET /healthcheck
 router.get('/healthcheck', (req, res) => {
@@ -88,6 +89,46 @@ router.get('/funds-status', (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// ERC-8004 — GET /agent-metadata.json
+router.get('/agent-metadata.json', (req, res) => {
+  // Try repo root first, then fallback to inline
+  const candidates = [
+    path.join(process.cwd(), 'agent-metadata.json'),
+    path.join(__dirname, '../../agent-metadata.json'),
+    path.join(__dirname, '../../../agent-metadata.json')
+  ];
+  for (const metaPath of candidates) {
+    if (fs.existsSync(metaPath)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.sendFile(path.resolve(metaPath));
+    }
+  }
+  res.status(404).json({ error: 'agent-metadata.json not found' });
+});
+
+// ERC-8004 domain verification — GET /.well-known/agent-registration.json
+router.get('/.well-known/agent-registration.json', (req, res) => {
+  const filePath = path.join(WELL_KNOWN_PATH, 'agent-registration.json');
+  if (fs.existsSync(filePath)) {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    return res.sendFile(path.resolve(filePath));
+  }
+  res.status(404).json({ error: 'not found' });
+});
+
+// A2A agent card — GET /.well-known/agent-card.json
+router.get('/.well-known/agent-card.json', (req, res) => {
+  const filePath = path.join(WELL_KNOWN_PATH, 'agent-card.json');
+  if (fs.existsSync(filePath)) {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    return res.sendFile(path.resolve(filePath));
+  }
+  res.status(404).json({ error: 'not found' });
 });
 
 // Pearl Phase 1.5 — GET / returns HTML Agent UI

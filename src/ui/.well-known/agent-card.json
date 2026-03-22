@@ -1,0 +1,57 @@
+{
+  "name": "Memora",
+  "description": "The first Pearl inter-agent memory layer in the Olas ecosystem. Memora weaves, stores, and recalls verifiable memories across every Pearl agent with on-chain ERC-8004 attestation.",
+  "url": "https://memora-production-bfc4.up.railway.app",
+  "version": "1.0.0",
+  "documentationUrl": "https://memora-production-bfc4.up.railway.app",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "authentication": null,
+  "skills": [
+    {
+      "id": "memory_weave",
+      "name": "Memory Weave",
+      "description": "Weave and store a verifiable memory for an agent with ERC-8004 attestation",
+      "tags": ["memory", "weave", "on-chain", "attestation"],
+      "examples": [
+        "POST /weave {agent_id, content, category, tx_hash}"
+      ]
+    },
+    {
+      "id": "memory_recall",
+      "name": "Memory Recall",
+      "description": "Retrieve woven memories for an agent with cryptographic proof",
+      "tags": ["memory", "recall", "proof"],
+      "examples": [
+        "GET /recall?agent_id=xxx"
+      ]
+    },
+    {
+      "id": "memory_search",
+      "name": "Cross-Agent Memory Search",
+      "description": "Search and inject memories across Pearl agents for collaborative decision-making",
+      "tags": ["memory", "search", "cross-agent"],
+      "examples": [
+        "POST /weave with cross-agent injection"
+      ]
+    },
+    {
+      "id": "memory_forget",
+      "name": "Memory Forget",
+      "description": "Permanently erase a memory per user forget policy",
+      "tags": ["memory", "forget", "privacy"],
+      "examples": [
+        "DELETE /forget/:id"
+      ]
+    }
+  ],
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"],
+  "provider": {
+    "organization": "Memora",
+    "url": "https://memora.codes"
+  }
+}

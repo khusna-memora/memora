@@ -1,0 +1,69 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "Memora",
+  "description": "The first Pearl inter-agent memory layer in the Olas ecosystem. Memora weaves, stores, and recalls verifiable memories across every Pearl agent with on-chain ERC-8004 attestation on Base. One memory. All your agents. Forever on-chain.",
+  "image": "https://ipfs.io/ipfs/bafkreiei2lvc43t4jipw65pt3vvfljnrm5yms6ei7vhfa6h3da5t5zg67e",
+  "services": [
+    {
+      "name": "web",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/"
+    },
+    {
+      "name": "A2A",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/.well-known/agent-card.json",
+      "version": "0.3.0"
+    },
+    {
+      "name": "healthcheck",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/healthcheck"
+    },
+    {
+      "name": "weave",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/weave"
+    },
+    {
+      "name": "recall",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/recall"
+    },
+    {
+      "name": "hire",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/hire"
+    },
+    {
+      "name": "tools",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/tools"
+    }
+  ],
+  "x402Support": false,
+  "active": true,
+  "registrations": [],
+  "supportedTrust": [
+    "reputation"
+  ],
+  "properties": {
+    "agent_id": "memora",
+    "tagline": "One memory. All your agents. Forever on-chain.",
+    "owner": "0x33A369788781D669Ae1EbFaB67FF55Df527083b1",
+    "chain": "base",
+    "chain_id": 8453,
+    "erc8004_compliant": true,
+    "pearl_compliant": true,
+    "pearl_port": 8716,
+    "tools": [
+      "memory_weave",
+      "memory_recall",
+      "memory_search",
+      "memory_forget",
+      "memory_stats"
+    ],
+    "mech_tools": {
+      "hire": ["text-summarizer", "prediction-online", "text-vectorizer"],
+      "serve": ["memory_weave", "memory_recall", "memory_search"]
+    },
+    "github": "https://github.com/khusna-memora/memora",
+    "website": "https://memora.codes",
+    "logo_ipfs": "ipfs://bafkreiei2lvc43t4jipw65pt3vvfljnrm5yms6ei7vhfa6h3da5t5zg67e",
+    "deployed_url": "https://memora-production-bfc4.up.railway.app",
+    "metadata_url": "https://memora-production-bfc4.up.railway.app/agent-metadata.json"
+  }
+}
