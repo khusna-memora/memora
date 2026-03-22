@@ -1,0 +1,9 @@
+node_modules/
+.env
+data/
+*.db
+*.db-wal
+*.db-shm
+log.txt
+agent_runner_*
+.git/

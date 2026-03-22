@@ -11,3 +11,8 @@
 [2026-03-22 19:24:45,347] [INFO] [agent] POST /hire
 [2026-03-22 19:24:45,347] [INFO] [agent] HIRE id=5a4028ba-8a36-4c95-b49f-d2bb3e11cf67 tool=text-summarizer chain=base
 [2026-03-22 19:24:45,348] [INFO] [agent] HIRE completed id=5a4028ba-8a36-4c95-b49f-d2bb3e11cf67 tool=text-summarizer elapsed=1ms
+[2026-03-22 19:30:48,218] [INFO] [agent] Memora v1.0.0 started on port 8716
+[2026-03-22 19:30:48,220] [INFO] [agent] One memory. All your agents. Forever on-chain.
+[2026-03-22 19:30:48,220] [INFO] [agent] Chain: Base | ERC-8004 | Pearl-native | Olas Mech Marketplace
+[2026-03-22 19:30:52,034] [INFO] [agent] GET /healthcheck
+[2026-03-22 19:30:52,036] [INFO] [agent] Healthcheck OK — memories:0 mech:0 hired:1

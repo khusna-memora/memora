@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memora — Memory Weaver</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --border: #1e1e2e;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --text: #e2e8f0;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px; min-height: 100vh; }
+    header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+    .logo { font-size: 22px; }
+    .agent-name { font-size: 18px; font-weight: 700; color: var(--accent); }
+    .tagline { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-left: auto; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    main { padding: 20px 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .stat-value { font-size: 26px; font-weight: 700; color: var(--accent); margin-top: 4px; }
+    .section { background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
+    .section-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .section-body { padding: 14px 16px; }
+    .endpoint { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .endpoint:last-child { border-bottom: none; }
+    .method { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; min-width: 40px; text-align: center; }
+    .get { background: #052e16; color: var(--green); }
+    .post { background: #172554; color: var(--accent2); }
+    .delete { background: #450a0a; color: #f87171; }
+    .ep-path { color: var(--text); }
+    .ep-desc { color: var(--muted); font-size: 12px; margin-left: auto; }
+    .badge { font-size: 10px; padding: 2px 8px; border-radius: 12px; background: #1e1b4b; color: var(--accent); }
+    .chain-badge { background: #0c1a2e; color: var(--accent2); }
+    .weave-form { display: flex; flex-direction: column; gap: 10px; }
+    .weave-form input, .weave-form textarea, .weave-form select {
+      background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      padding: 8px 10px; border-radius: 6px; font-family: inherit; font-size: 13px; width: 100%;
+    }
+    .weave-form textarea { height: 70px; resize: vertical; }
+    .btn { background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; }
+    .btn:hover { opacity: 0.85; }
+    .btn-sm { padding: 4px 10px; font-size: 12px; }
+    .result { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 12px; color: var(--accent2); white-space: pre-wrap; max-height: 150px; overflow-y: auto; margin-top: 10px; display: none; }
+    .memories-list { max-height: 200px; overflow-y: auto; }
+    .memory-item { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+    .memory-item:last-child { border-bottom: none; }
+    .memory-meta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .proof-tag { font-size: 10px; color: var(--accent); background: #1e1b4b; padding: 1px 5px; border-radius: 3px; }
+    footer { padding: 16px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 11px; display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="logo">🧠</span>
+    <div>
+      <div class="agent-name">Memora</div>
+      <div class="tagline">One memory. All your agents. Forever on-chain.</div>
+    </div>
+    <span class="badge chain-badge">Base</span>
+    <span class="badge">ERC-8004</span>
+    <span class="badge">Pearl-native</span>
+    <span class="status-dot" id="statusDot"></span>
+  </header>
+
+  <main>
+    <div class="grid">
+      <div class="stat-card">
+        <div class="stat-label">Memories Woven</div>
+        <div class="stat-value" id="statMemories">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Agents Served</div>
+        <div class="stat-value" id="statAgents">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Mechs Hired</div>
+        <div class="stat-value" id="statHired">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Mech Requests</div>
+        <div class="stat-value" id="statMech">—</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">⚡ Quick Weave</div>
+      <div class="section-body">
+        <div class="weave-form">
+          <input id="weaveAgent" placeholder="agent_id (e.g. my-agent-001)" />
+          <textarea id="weaveContent" placeholder="Memory content..."></textarea>
+          <div style="display:flex;gap:8px">
+            <select id="weaveCategory" style="flex:1">
+              <option value="general">general</option>
+              <option value="preferences">preferences</option>
+              <option value="knowledge">knowledge</option>
+              <option value="history">history</option>
+              <option value="task">task</option>
+            </select>
+            <button class="btn btn-sm" onclick="doWeave()">Weave →</button>
+            <button class="btn btn-sm" style="background:#0ea5e9" onclick="doRecall()">Recall</button>
+          </div>
+        </div>
+        <div class="result" id="weaveResult"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">🤖 Hire a Mech</div>
+      <div class="section-body">
+        <div class="weave-form">
+          <select id="hireTool">
+            <option value="text-summarizer">text-summarizer — compress memory content</option>
+            <option value="prediction-online">prediction-online — enrich with forecasting</option>
+            <option value="text-vectorizer">text-vectorizer — semantic embedding</option>
+          </select>
+          <textarea id="hirePrompt" placeholder="Content to process via mech..."></textarea>
+          <div style="display:flex;justify-content:flex-end">
+            <button class="btn btn-sm" onclick="doHire()">Hire Mech →</button>
+          </div>
+        </div>
+        <div class="result" id="hireResult"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">📡 API Endpoints</div>
+      <div class="section-body">
+        <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/healthcheck</span><span class="ep-desc">Pearl health · is_healthy + rounds</span></div>
+        <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/funds-status</span><span class="ep-desc">Pearl funding status</span></div>
+        <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/weave</span><span class="ep-desc">Store memory + ERC-8004 proof</span></div>
+        <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/recall</span><span class="ep-desc">Retrieve memories by agent</span></div>
+        <div class="endpoint"><span class="method delete">DEL</span><span class="ep-path">/forget/:id</span><span class="ep-desc">Privacy-first erasure</span></div>
+        <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/hire</span><span class="ep-desc">Hire Olas Marketplace mech</span></div>
+        <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/request</span><span class="ep-desc">Serve as mech (5 tools)</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">💾 Recent Memories</div>
+      <div class="section-body">
+        <div class="memories-list" id="memoriesList"><div style="color:var(--muted)">Loading...</div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>Memora v1.0.0 — memora.codes</span>
+    <span>ERC-8004 verified on Base · Pearl-native</span>
+  </footer>
+
+  <script>
+    async function loadStats() {
+      try {
+        const r = await fetch('/stats');
+        const d = await r.json();
+        document.getElementById('statMemories').textContent = d.total_memories ?? 0;
+        document.getElementById('statAgents').textContent = d.unique_agents ?? 0;
+        document.getElementById('statMech').textContent = d.mech_requests_served ?? 0;
+        document.getElementById('statHired').textContent = d.mech_hired ?? 0;
+      } catch(e) {}
+    }
+
+    async function loadMemories() {
+      try {
+        // fetch a few recent memories (admin view)
+        const r = await fetch('/recall?agent_id=__all__&limit=10');
+        const d = await r.json();
+        const el = document.getElementById('memoriesList');
+        if (!d.memories || d.memories.length === 0) {
+          el.innerHTML = '<div style="color:var(--muted);font-size:12px">No memories yet. Weave the first one above!</div>';
+          return;
+        }
+        el.innerHTML = d.memories.map(m => `
+          <div class="memory-item">
+            <div>${m.content.substring(0,100)}${m.content.length>100?'…':''} <span class="proof-tag">ERC-8004</span></div>
+            <div class="memory-meta">${m.agent_id} · ${m.category} · ${m.created_at.substring(0,10)}</div>
+          </div>`).join('');
+      } catch(e) {
+        document.getElementById('memoriesList').innerHTML = '<div style="color:var(--muted);font-size:12px">—</div>';
+      }
+    }
+
+    async function doWeave() {
+      const agentId = document.getElementById('weaveAgent').value.trim();
+      const content = document.getElementById('weaveContent').value.trim();
+      const category = document.getElementById('weaveCategory').value;
+      if (!agentId || !content) return alert('agent_id and content required');
+      const r = await fetch('/weave', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({agent_id:agentId,content,category}) });
+      const d = await r.json();
+      const el = document.getElementById('weaveResult');
+      el.style.display = 'block';
+      el.textContent = JSON.stringify(d, null, 2);
+      loadStats(); loadMemories();
+    }
+
+    async function doRecall() {
+      const agentId = document.getElementById('weaveAgent').value.trim() || '__all__';
+      const r = await fetch(`/recall?agent_id=${agentId}&limit=5`);
+      const d = await r.json();
+      const el = document.getElementById('weaveResult');
+      el.style.display = 'block';
+      el.textContent = JSON.stringify(d.memories, null, 2);
+    }
+
+    async function doHire() {
+      const tool = document.getElementById('hireTool').value;
+      const prompt = document.getElementById('hirePrompt').value.trim();
+      if (!prompt) return alert('prompt required');
+      const r = await fetch('/hire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tool,prompt,chain:'base'}) });
+      const d = await r.json();
+      const el = document.getElementById('hireResult');
+      el.style.display = 'block';
+      el.textContent = JSON.stringify(d.result, null, 2);
+      loadStats();
+    }
+
+    // Check health
+    fetch('/healthcheck').then(r=>r.json()).then(d=>{
+      document.getElementById('statusDot').style.background = d.is_healthy ? '#22c55e' : '#ef4444';
+    }).catch(()=>{
+      document.getElementById('statusDot').style.background = '#ef4444';
+    });
+
+    loadStats();
+    loadMemories();
+    setInterval(loadStats, 30000);
+  </script>
+</body>
+</html>

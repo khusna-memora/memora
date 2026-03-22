@@ -1,0 +1,28 @@
+agent_name: memora
+author: khusna_memora
+version: 0.1.0
+description: The first Pearl inter-agent memory layer in the Olas ecosystem.
+license: MIT
+fingerprint: {}
+fingerprint_ignore_patterns: []
+connections:
+- valory/http_server:0.22.0
+- valory/ledger:0.21.0
+contracts: []
+protocols:
+- open_aea/signing:1.0.0
+- valory/http:1.0.0
+skills:
+- valory/abstract_round_abci:0.1.0
+- valory/registration_abci:0.1.0
+- khusna_memora/memora_abci:0.1.0
+default_ledger: ethereum
+required_ledgers:
+- ethereum
+default_routing: {}
+connection_private_key_paths: {}
+private_key_paths: {}
+logging_config:
+  disable_existing_loggers: false
+  version: 1
+dependencies: {}

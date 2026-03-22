@@ -1,0 +1,30 @@
+name: memora
+author: khusna_memora
+version: 0.1.0
+description: The first Pearl inter-agent memory layer in the Olas ecosystem.
+license: MIT
+fingerprint: {}
+fingerprint_ignore_patterns: []
+agent: khusna_memora/memora:0.1.0:bafybei0000000000000000000000000000000000000000000000000000000000
+number_of_agents: 1
+deployment:
+  agent_instances:
+    - agent_instance_0
+  networks:
+    base:
+      chain_id: 8453
+overrides:
+- label: null
+  type: service
+  public_id: valory/configs:0.1.0
+  models:
+    params:
+      args:
+        # Pearl standard env vars
+        store_path: ${str:CONNECTION_CONFIGS_CONFIG_STORE_PATH}
+        safe_contract_addresses: ${str:CONNECTION_CONFIGS_CONFIG_SAFE_CONTRACT_ADDRESSES}
+        # RPC endpoints provided by Pearl
+        base_rpc: ${str:CONNECTION_LEDGER_CONFIG_LEDGER_APIS_BASE_ADDRESS}
+        # Memora-specific (optional)
+        agent_eoa_address: ${str:AGENT_EOA_ADDRESS}
+        port: ${int:PORT:8716}

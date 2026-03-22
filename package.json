@@ -1,21 +1,43 @@
 {
   "name": "memora",
-  "version": "1.0.0",
-  "description": "Shared memory weaver for Pearl agents — One memory. All your agents. Forever on-chain.",
+  "version": "0.1.0",
+  "description": "The first Pearl inter-agent memory layer in the Olas ecosystem.",
   "main": "src/index.js",
+  "bin": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "node --watch src/index.js"
+    "dev": "node --watch src/index.js",
+    "build:linux":   "pkg src/index.js --target node18-linux-x64   --output agent_runner_linux_x64   --compress GZip",
+    "build:mac-x64": "pkg src/index.js --target node18-macos-x64   --output agent_runner_macos_x64   --compress GZip",
+    "build:mac-arm": "pkg src/index.js --target node18-macos-arm64 --output agent_runner_macos_arm64 --compress GZip",
+    "build:win":     "pkg src/index.js --target node18-win-x64     --output agent_runner_windows_x64.exe --compress GZip"
+  },
+  "pkg": {
+    "assets": [
+      "src/ui/**/*"
+    ],
+    "scripts": [
+      "src/**/*.js"
+    ]
   },
   "dependencies": {
-    "express": "^4.18.2",
     "better-sqlite3": "^9.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "viem": "^2.17.0",
-    "uuid": "^9.0.1"
+    "express": "^4.18.2",
+    "uuid": "^9.0.1",
+    "viem": "^2.17.0"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "homepage": "https://memora.codes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khusna-memora/memora"
   }
 }
