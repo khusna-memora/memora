@@ -2,7 +2,7 @@
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "Memora",
   "description": "The first Pearl inter-agent memory layer in the Olas ecosystem. Memora weaves, stores, and recalls verifiable memories across every Pearl agent with on-chain ERC-8004 attestation on Base. One memory. All your agents. Forever on-chain.",
-  "image": "https://ipfs.io/ipfs/bafkreiei2lvc43t4jipw65pt3vvfljnrm5yms6ei7vhfa6h3da5t5zg67e",
+  "image": "https://memora.codes/avatar.png",
   "services": [
     {
       "name": "web",
@@ -36,7 +36,12 @@
   ],
   "x402Support": false,
   "active": true,
-  "registrations": [],
+  "registrations": [
+    {
+      "agentId": 35755,
+      "agentRegistry": "eip155:8453:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+    }
+  ],
   "supportedTrust": [
     "reputation"
   ],
@@ -49,6 +54,10 @@
     "erc8004_compliant": true,
     "pearl_compliant": true,
     "pearl_port": 8716,
+    "erc8004_agent_id": 35755,
+    "erc8004_registry": "eip155:8453:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "registration_tx": "0xcb8ed2d86144e44ba68ad1489783499cc60f71334af0201868886b14e695161c",
+    "basescan_tx": "https://basescan.org/tx/0xcb8ed2d86144e44ba68ad1489783499cc60f71334af0201868886b14e695161c",
     "tools": [
       "memory_weave",
       "memory_recall",
@@ -62,7 +71,6 @@
     },
     "github": "https://github.com/khusna-memora/memora",
     "website": "https://memora.codes",
-    "logo_ipfs": "ipfs://bafkreiei2lvc43t4jipw65pt3vvfljnrm5yms6ei7vhfa6h3da5t5zg67e",
     "deployed_url": "https://memora-production-bfc4.up.railway.app",
     "metadata_url": "https://memora-production-bfc4.up.railway.app/agent-metadata.json"
   }
