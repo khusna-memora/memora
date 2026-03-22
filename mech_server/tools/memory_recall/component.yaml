@@ -1,0 +1,12 @@
+name: memory_recall
+author: khusna_memora
+version: 0.1.0
+type: custom
+description: "Recall verifiable memories for an agent from Memora's shared memory layer."
+license: MIT
+aea_version: ">=1.56.0"
+fingerprint: {}
+fingerprint_ignore_patterns: []
+entry_point: memory_recall.py
+callable: run
+dependencies: {}

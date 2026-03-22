@@ -1,0 +1,12 @@
+name: memory_weave
+author: khusna_memora
+version: 0.1.0
+type: custom
+description: "Store a verifiable memory for an agent via Memora's ERC-8004 on-chain attestation layer."
+license: MIT
+aea_version: ">=1.56.0"
+fingerprint: {}
+fingerprint_ignore_patterns: []
+entry_point: memory_weave.py
+callable: run
+dependencies: {}

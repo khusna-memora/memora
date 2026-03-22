@@ -1,0 +1,12 @@
+name: memory_search
+author: khusna_memora
+version: 0.1.0
+type: custom
+description: "Cross-agent memory search across the entire Memora network."
+license: MIT
+aea_version: ">=1.56.0"
+fingerprint: {}
+fingerprint_ignore_patterns: []
+entry_point: memory_search.py
+callable: run
+dependencies: {}
