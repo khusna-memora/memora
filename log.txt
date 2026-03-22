@@ -2,3 +2,12 @@
 [2026-03-22T19:05:33.409Z] Memora v1.0.0 running on port 3000 — memora.codes
 [2026-03-22T19:05:36.132Z] GET /healthcheck
 [2026-03-22T19:05:36.132Z] HEALTHCHECK OK — memories: 0, mech_served: 0
+[2026-03-22 19:24:42,438] [INFO] [agent] Memora v1.0.0 started on port 8716
+[2026-03-22 19:24:42,440] [INFO] [agent] One memory. All your agents. Forever on-chain.
+[2026-03-22 19:24:42,440] [INFO] [agent] Chain: Base | ERC-8004 | Pearl-native | Olas Mech Marketplace
+[2026-03-22 19:24:45,290] [INFO] [agent] GET /
+[2026-03-22 19:24:45,312] [INFO] [agent] GET /healthcheck
+[2026-03-22 19:24:45,312] [INFO] [agent] Healthcheck OK — memories: 0, mech_served: 0
+[2026-03-22 19:24:45,347] [INFO] [agent] POST /hire
+[2026-03-22 19:24:45,347] [INFO] [agent] HIRE id=5a4028ba-8a36-4c95-b49f-d2bb3e11cf67 tool=text-summarizer chain=base
+[2026-03-22 19:24:45,348] [INFO] [agent] HIRE completed id=5a4028ba-8a36-4c95-b49f-d2bb3e11cf67 tool=text-summarizer elapsed=1ms
