@@ -199,46 +199,144 @@ router.post('/request', async (req, res) => {
   }
 });
 
+// MCP tools definition (shared)
+const MCP_TOOLS = [
+  {
+    name: 'memory_weave',
+    description: 'Store a verifiable memory for an agent with optional on-chain attestation',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        agent_id: { type: 'string', description: 'Agent identifier' },
+        content:  { type: 'string', description: 'Memory content to weave' },
+        category: { type: 'string', description: 'Optional category tag' },
+        tags:     { type: 'array', items: { type: 'string' }, description: 'Optional tags' },
+        tx_hash:  { type: 'string', description: 'Optional on-chain TX hash for attestation' }
+      },
+      required: ['agent_id', 'content']
+    }
+  },
+  {
+    name: 'memory_recall',
+    description: 'Recall stored memories for an agent, optionally filtered by category or search query',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        agent_id: { type: 'string', description: 'Agent identifier' },
+        category: { type: 'string', description: 'Filter by category' },
+        q:        { type: 'string', description: 'Search query' },
+        limit:    { type: 'number', description: 'Max results (default 10)' }
+      },
+      required: ['agent_id']
+    }
+  },
+  {
+    name: 'memory_search',
+    description: 'Search across all memories by content keyword',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Search keyword' },
+        limit: { type: 'number', description: 'Max results' }
+      },
+      required: ['query']
+    }
+  },
+  {
+    name: 'memory_forget',
+    description: 'Permanently erase a memory per user forget policy',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        agent_id:  { type: 'string', description: 'Agent identifier' },
+        memory_id: { type: 'string', description: 'Memory ID to erase' }
+      },
+      required: ['agent_id', 'memory_id']
+    }
+  },
+  {
+    name: 'memory_stats',
+    description: 'Get aggregated memory statistics for the Memora network',
+    inputSchema: { type: 'object', properties: {} }
+  }
+];
+
 /**
- * GET /tools
- * List available mech tools (Olas marketplace discovery)
+ * GET /tools  — legacy discovery format
+ * POST /tools — MCP 2025-06-18 JSON-RPC (initialize / tools/list / tools/call)
  */
 router.get('/tools', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.json({
     agent: 'Memora',
     version: '1.0.0',
     description: 'Shared memory weaver for Pearl agents — verifiable on-chain memory storage and recall',
-    tools: [
-      {
-        name: 'memory_weave',
-        description: 'Store a verifiable memory for an agent with optional on-chain attestation',
-        input_schema: { agent_id: 'string', content: 'string', category: 'string?', tags: 'string[]?', tx_hash: 'string?' }
-      },
-      {
-        name: 'memory_recall',
-        description: 'Recall stored memories for an agent, optionally filtered by category or search query',
-        input_schema: { agent_id: 'string', category: 'string?', q: 'string?', limit: 'number?' }
-      },
-      {
-        name: 'memory_search',
-        description: 'Search across all memories by content keyword',
-        input_schema: { query: 'string', limit: 'number?' }
-      },
-      {
-        name: 'memory_forget',
-        description: 'Permanently erase a memory (privacy-first forget policy)',
-        input_schema: { agent_id: 'string', memory_id: 'string' }
-      },
-      {
-        name: 'memory_stats',
-        description: 'Get aggregated memory statistics for the Memora network',
-        input_schema: {}
+    protocol: 'MCP 2025-06-18',
+    tools: MCP_TOOLS,
+    links: { website: 'https://memora.codes', erc8004: 'https://eips.ethereum.org/EIPS/eip-8004' }
+  });
+});
+
+router.options('/tools', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.sendStatus(204);
+});
+
+router.post('/tools', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+
+  const body = req.body || {};
+  const method = body.method || '';
+  const id = body.id !== undefined ? body.id : null;
+
+  // MCP initialize handshake
+  if (method === 'initialize') {
+    return res.json({
+      jsonrpc: '2.0', id,
+      result: {
+        protocolVersion: '2025-06-18',
+        capabilities: { tools: { listChanged: false } },
+        serverInfo: { name: 'Memora', version: '1.0.0' }
       }
-    ],
-    links: {
-      website: 'https://memora.codes',
-      erc8004: 'https://eips.ethereum.org/EIPS/eip-8004'
-    }
+    });
+  }
+
+  // tools/list
+  if (method === 'tools/list') {
+    return res.json({
+      jsonrpc: '2.0', id,
+      result: { tools: MCP_TOOLS }
+    });
+  }
+
+  // tools/call
+  if (method === 'tools/call') {
+    const toolName = body.params?.name;
+    const args = body.params?.arguments || {};
+    return res.json({
+      jsonrpc: '2.0', id,
+      result: {
+        content: [{
+          type: 'text',
+          text: `Tool '${toolName}' called on Memora. Use POST /weave, GET /recall, or POST /hire directly. Args: ${JSON.stringify(args)}`
+        }],
+        isError: false
+      }
+    });
+  }
+
+  // notifications/initialized (no response needed per MCP spec)
+  if (method === 'notifications/initialized') {
+    return res.status(204).end();
+  }
+
+  // Unknown method
+  return res.json({
+    jsonrpc: '2.0', id,
+    error: { code: -32601, message: `Method not found: ${method}` }
   });
 });
 
