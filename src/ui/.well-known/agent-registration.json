@@ -6,32 +6,32 @@
   "services": [
     {
       "name": "web",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/"
+      "endpoint": "https://memora.codes/"
     },
     {
       "name": "A2A",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/.well-known/agent-card.json",
+      "endpoint": "https://memora.codes/.well-known/agent-card.json",
       "version": "0.3.0"
     },
     {
       "name": "healthcheck",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/healthcheck"
+      "endpoint": "https://memora.codes/healthcheck"
     },
     {
       "name": "weave",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/weave"
+      "endpoint": "https://memora.codes/weave"
     },
     {
       "name": "recall",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/recall"
+      "endpoint": "https://memora.codes/recall"
     },
     {
       "name": "hire",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/hire"
+      "endpoint": "https://memora.codes/hire"
     },
     {
       "name": "tools",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/tools"
+      "endpoint": "https://memora.codes/tools"
     }
   ],
   "active": true,

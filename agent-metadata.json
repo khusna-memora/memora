@@ -2,41 +2,41 @@
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "Memora",
   "description": "Memora is the first shared memory layer for Pearl AI agents — the only inter-agent memory weaver in the Olas ecosystem. It weaves, stores, and recalls verifiable memories across every Pearl agent with on-chain ERC-8004 attestation. Features: privacy-first forget policy, cross-agent memory injection, Safe multisig signature proofs, and offline-first Pearl-native operation. Tagline: One memory. All your agents. Forever on-chain.",
-  "image": "https://memora-production-bfc4.up.railway.app/logo.jpg",
+  "image": "https://memora.codes/logo.jpg",
   "services": [
     {
       "name": "web",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/"
+      "endpoint": "https://memora.codes/"
     },
     {
       "name": "A2A",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/.well-known/agent-card.json",
+      "endpoint": "https://memora.codes/.well-known/agent-card.json",
       "version": "0.3.0"
     },
     {
       "name": "MCP",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/tools",
+      "endpoint": "https://memora.codes/tools",
       "version": "2025-06-18"
     },
     {
       "name": "healthcheck",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/healthcheck"
+      "endpoint": "https://memora.codes/healthcheck"
     },
     {
       "name": "weave",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/weave"
+      "endpoint": "https://memora.codes/weave"
     },
     {
       "name": "recall",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/recall"
+      "endpoint": "https://memora.codes/recall"
     },
     {
       "name": "hire",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/hire"
+      "endpoint": "https://memora.codes/hire"
     },
     {
       "name": "stats",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/stats"
+      "endpoint": "https://memora.codes/stats"
     }
   ],
   "x402Support": false,
