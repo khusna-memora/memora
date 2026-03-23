@@ -17,6 +17,7 @@ RUN npm ci --production && npm cache clean --force
 # Copy source
 COPY src/ ./src/
 COPY run.sh ./
+COPY agent-metadata.json ./
 RUN chmod +x run.sh
 
 # Create data dir

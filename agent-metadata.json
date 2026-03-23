@@ -1,8 +1,8 @@
 {
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "Memora",
-  "description": "The first Pearl inter-agent memory layer in the Olas ecosystem. Memora weaves, stores, and recalls verifiable memories across every Pearl agent with on-chain ERC-8004 attestation on Base. One memory. All your agents. Forever on-chain.",
-  "image": "https://memora.codes/avatar.png",
+  "description": "Memora is the first shared memory layer for Pearl AI agents — the only inter-agent memory weaver in the Olas ecosystem. It weaves, stores, and recalls verifiable memories across every Pearl agent with on-chain ERC-8004 attestation. Features: privacy-first forget policy, cross-agent memory injection, Safe multisig signature proofs, and offline-first Pearl-native operation. Tagline: One memory. All your agents. Forever on-chain.",
+  "image": "https://memora-production-bfc4.up.railway.app/logo.jpg",
   "services": [
     {
       "name": "web",
@@ -12,6 +12,11 @@
       "name": "A2A",
       "endpoint": "https://memora-production-bfc4.up.railway.app/.well-known/agent-card.json",
       "version": "0.3.0"
+    },
+    {
+      "name": "MCP",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/tools",
+      "version": "2025-06-18"
     },
     {
       "name": "healthcheck",
@@ -30,8 +35,8 @@
       "endpoint": "https://memora-production-bfc4.up.railway.app/hire"
     },
     {
-      "name": "tools",
-      "endpoint": "https://memora-production-bfc4.up.railway.app/tools"
+      "name": "stats",
+      "endpoint": "https://memora-production-bfc4.up.railway.app/stats"
     }
   ],
   "x402Support": false,
@@ -43,35 +48,7 @@
     }
   ],
   "supportedTrust": [
-    "reputation"
-  ],
-  "properties": {
-    "agent_id": "memora",
-    "tagline": "One memory. All your agents. Forever on-chain.",
-    "owner": "0x33A369788781D669Ae1EbFaB67FF55Df527083b1",
-    "chain": "base",
-    "chain_id": 8453,
-    "erc8004_compliant": true,
-    "pearl_compliant": true,
-    "pearl_port": 8716,
-    "erc8004_agent_id": 35755,
-    "erc8004_registry": "eip155:8453:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-    "registration_tx": "0xcb8ed2d86144e44ba68ad1489783499cc60f71334af0201868886b14e695161c",
-    "basescan_tx": "https://basescan.org/tx/0xcb8ed2d86144e44ba68ad1489783499cc60f71334af0201868886b14e695161c",
-    "tools": [
-      "memory_weave",
-      "memory_recall",
-      "memory_search",
-      "memory_forget",
-      "memory_stats"
-    ],
-    "mech_tools": {
-      "hire": ["text-summarizer", "prediction-online", "text-vectorizer"],
-      "serve": ["memory_weave", "memory_recall", "memory_search"]
-    },
-    "github": "https://github.com/khusna-memora/memora",
-    "website": "https://memora.codes",
-    "deployed_url": "https://memora-production-bfc4.up.railway.app",
-    "metadata_url": "https://memora-production-bfc4.up.railway.app/agent-metadata.json"
-  }
+    "reputation",
+    "crypto-economic"
+  ]
 }

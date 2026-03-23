@@ -4,3 +4,4 @@ data/
 *.db
 *.db-wal
 *.db-shm
+ethereum_private_key.txt
