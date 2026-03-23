@@ -140,7 +140,7 @@ router.get('/stats', (req, res) => {
       uptime_seconds: Math.floor(process.uptime()),
       registrations: [
         { chain: 'base', chainId: 8453, agentId: 35755, registry: '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432' },
-        { chain: 'gnosis', chainId: 100, agentId: null, registry: '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432', status: 'pending' }
+        { chain: 'gnosis', chainId: 100, agentId: 3259, registry: '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432', status: 'active', mechContract: '0xbf8B2E2A0C0b5ccede9F9D3943aC8B3C4CDa4835', serviceToken: 2986 }
       ],
       metrics: {
         total_memories: memCount.count,
