@@ -2,7 +2,7 @@
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "Memora",
   "description": "The first Pearl inter-agent memory layer in the Olas ecosystem. Memora weaves, stores, and recalls verifiable memories across every Pearl agent with on-chain ERC-8004 attestation on Base and Gnosis. One memory. All your agents. Forever on-chain.",
-  "image": "https://memora.codes/avatar.png",
+  "image": "https://memora.codes/logo.jpg",
   "services": [
     {
       "name": "web",
